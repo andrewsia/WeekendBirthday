@@ -8,10 +8,18 @@ public class Main {
         Scanner input = new Scanner(System.in);
         System.out.println("When is your birthday? ('mm/dd/yyyy' format)");
         String bday = input.nextLine();
-        if(Integer.parseInt(bday.substring(bday.length()-4)) >= 4999) //Preventing errors with 5 digit years.
+
+        int year = bday.lastIndexOf("/") + 1;
+        int yearCheck = Integer.parseInt(bday.substring(year));
+        if(yearCheck > 9800) //Preventing errors with 5 digit years.
         {
-            bday = bday.substring(0,bday.length()-4) + 4998;
+            bday = bday.substring(0,year) + 9800;
         }
+        else if(yearCheck < 1000)
+        {
+            bday = bday.substring(0,year) + 1000;
+        }
+
         System.out.println("Would you like Sundays to be included? Type 'y' or 'n'");
         String sunday = input.next();
         input.close();
@@ -21,7 +29,7 @@ public class Main {
             {
                 bday = bday.substring(0,bday.length()-4) + (Integer.parseInt(bday.substring(bday.length()-4))+1);
                 LocalDate day = LocalDate.parse(bday,formatter);
-                if(day.getYear() >= LocalDate.now().getYear() && isWeekendInc(day))
+                if(isWeekendInc(day))
                 {
                     System.out.println("Age " + (i+1) + " (" + bday + "): " + day.getDayOfWeek());
                 }
@@ -33,7 +41,7 @@ public class Main {
             {
                 bday = bday.substring(0,bday.length()-4) + (Integer.parseInt(bday.substring(bday.length()-4))+1);
                 LocalDate day = LocalDate.parse(bday,formatter);
-                if(day.getYear() >= LocalDate.now().getYear() && isWeekend(day))
+                if(isWeekend(day))
                 {
                     System.out.println("Age " + (i+1) + " (" + bday + "): " + day.getDayOfWeek());
                 }
