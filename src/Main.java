@@ -3,21 +3,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class Main {
-    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.println("When is your birthday? ('mm/dd/yyyy' format)");
         String bday = input.nextLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-        int year = bday.lastIndexOf("/") + 1;
-        int yearCheck = Integer.parseInt(bday.substring(year));
+        int yearIndex = bday.lastIndexOf("/") + 1;
+        int yearCheck = Integer.parseInt(bday.substring(yearIndex));
         if(yearCheck > 9800) //Preventing errors with 5 digit years.
         {
-            bday = bday.substring(0,year) + 9800;
+            bday = bday.substring(0,yearIndex) + 9800;
         }
         else if(yearCheck < 1000)
         {
-            bday = bday.substring(0,year) + 1000;
+            bday = bday.substring(0,yearIndex) + 1000;
         }
 
         System.out.println("Would you like Sundays to be included? Type 'y' or 'n'");
@@ -25,26 +25,26 @@ public class Main {
         input.close();
         if(sunday.equals("y"))
         {
-            for(int i = 0; i < 120; i++)
+            for(int i = 0; i <= 120; i++)
             {
-                bday = bday.substring(0,bday.length()-4) + (Integer.parseInt(bday.substring(bday.length()-4))+1);
                 LocalDate day = LocalDate.parse(bday,formatter);
                 if(isWeekendInc(day))
                 {
-                    System.out.println("Age " + (i+1) + " (" + bday + "): " + day.getDayOfWeek());
+                    System.out.println("Age " + (i) + " (" + bday + "): " + day.getDayOfWeek());
                 }
+                bday = bday.substring(0,bday.length()-4) + (Integer.parseInt(bday.substring(bday.length()-4))+1);
             }
         }
         else
         {
-            for(int i = 0; i < 120; i++)
+            for(int i = 0; i <= 120; i++)
             {
-                bday = bday.substring(0,bday.length()-4) + (Integer.parseInt(bday.substring(bday.length()-4))+1);
                 LocalDate day = LocalDate.parse(bday,formatter);
                 if(isWeekend(day))
                 {
-                    System.out.println("Age " + (i+1) + " (" + bday + "): " + day.getDayOfWeek());
+                    System.out.println("Age " + (i) + " (" + bday + "): " + day.getDayOfWeek());
                 }
+                bday = bday.substring(0,bday.length()-4) + (Integer.parseInt(bday.substring(bday.length()-4))+1);
             }
         }
     }
