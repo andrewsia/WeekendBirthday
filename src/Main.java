@@ -30,6 +30,17 @@ public class Main {
                 LocalDate day = LocalDate.parse(bday,formatter);
                 if(isWeekendInc(day))
                 {
+                    if(day.getYear() < LocalDate.now().getYear())
+                    {
+                        System.out.print("P | ");
+                    }
+                    else if(day.isEqual(LocalDate.now()))
+                    {
+                        System.out.print("Happy Birthday! | ");
+                    }
+                    else{
+                        System.out.print("F | ");
+                    }
                     System.out.println("Age " + (i) + " (" + bday + "): " + day.getDayOfWeek());
                 }
                 bday = bday.substring(0,bday.length()-4) + (Integer.parseInt(bday.substring(bday.length()-4))+1);
@@ -42,6 +53,13 @@ public class Main {
                 LocalDate day = LocalDate.parse(bday,formatter);
                 if(isWeekend(day))
                 {
+                    if(day.getYear() < LocalDate.now().getYear())
+                    {
+                        System.out.print("P | ");
+                    }
+                    else{
+                        System.out.print("F | ");
+                    }
                     System.out.println("Age " + (i) + " (" + bday + "): " + day.getDayOfWeek());
                 }
                 bday = bday.substring(0,bday.length()-4) + (Integer.parseInt(bday.substring(bday.length()-4))+1);
